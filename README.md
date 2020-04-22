@@ -2,7 +2,9 @@
 
 ## Overview
 
-Single-page Tetris game made with React following Thomas Weibenfalk's [tutorial](https://www.youtube.com/watch?v=ZGOaCxX8HIU) and Meth Meth Method's [tutorial](https://www.youtube.com/watch?v=H2aW5V46khA)
+Single-page Tetris game made with React following Thomas Weibenfalk's [tutorial](https://www.youtube.com/watch?v=ZGOaCxX8HIU) and Meth Meth Method's [tutorial](https://www.youtube.com/watch?v=H2aW5V46khA).
+
+To play, click on "START GAME". You can move the pieces LEFT, RIGHT and DOWN with corresponding arrow keys. UP key to rotate the pieces.
 
 <p align="center">
 	<img
