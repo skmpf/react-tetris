@@ -10,24 +10,20 @@ export const usePlayer = () => {
     collided: false,
   });
 
-  const rotate = (matrix, dir) => {
-    // Transpose tetromino shape (make rows into columns)
-    const rotatedTetro = matrix.map((_, index) =>
-      matrix.map((col) => col[index])
+  function rotate(matrix, dir) {
+    // Make the rows to become cols (transpose)
+    const mtrx = matrix.map((_, index) =>
+      matrix.map((column) => column[index])
     );
-    // Reverse each row to get a rotated matrix
-    if (dir > 0) return rotatedTetro.map((row) => row.reverse());
-    return rotatedTetro.reverse();
-  };
+    // Reverse each row to get a rotaded matrix
+    if (dir > 0) return mtrx.map((row) => row.reverse());
+    return mtrx.reverse();
+  }
 
-  const playerRotate = (stage, dir) => {
-    // create a copy of player to avoid mutating the state
-    // const clonedPlayer = JSON.parse(JSON.stringify(player));
-    const clonedPlayer = { ...player };
+  function playerRotate(stage, dir) {
+    const clonedPlayer = JSON.parse(JSON.stringify(player));
     clonedPlayer.tetromino = rotate(clonedPlayer.tetromino, dir);
 
-    // check for collisions:
-    // 1. keep track of player position
     const pos = clonedPlayer.pos.x;
     let offset = 1;
     while (checkCollision(clonedPlayer, stage, { x: 0, y: 0 })) {
@@ -39,16 +35,22 @@ export const usePlayer = () => {
         return;
       }
     }
-
     setPlayer(clonedPlayer);
-  };
+  }
 
   const updatePlayerPos = ({ x, y, collided }) => {
-    setPlayer((prev) => ({
-      ...prev,
-      pos: { x: (prev.pos.x += x), y: (prev.pos.y += y) },
-      collided,
-    }));
+    const clonedPlayer = { ...player };
+    clonedPlayer.pos.x += x;
+    clonedPlayer.pos.y += y;
+    clonedPlayer.collided = collided;
+    setPlayer(clonedPlayer);
+    // setPlayer((prev) => {
+    //   return {
+    //     ...prev,
+    //     pos: { x: (prev.pos.x += x), y: (prev.pos.y += y) },
+    //     collided,
+    //   };
+    // });
   };
 
   const resetPlayer = useCallback(() => {
